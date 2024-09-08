@@ -1,0 +1,16 @@
+FROM docker.io/rust:alpine3 AS build
+
+# bin crate name
+ARG NAME
+# ARG REPO_URI
+# ARG TAG
+
+WORKDIR /code
+# TODO replace with git clone and tag checkout
+COPY . /code
+RUN cargo build --release --bin ${NAME}
+
+# we don't need the rust toolchain to run the binary
+FROM docker.io/alpine:3
+USER nobody
+COPY --from=build /code/target/release/${NAME} /usr/bin/service

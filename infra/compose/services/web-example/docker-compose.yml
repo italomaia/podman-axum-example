@@ -1,0 +1,10 @@
+# production compose file; set safe options by default; variables should be filled from the environment/vault
+
+services:
+  web-server:
+    command: /usr/bin/service
+    image: localhost/rust-axum-prd
+    env_file:
+      - envs/envfile
+    ports:
+      - 8080:8080

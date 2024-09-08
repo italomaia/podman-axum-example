@@ -1,0 +1,11 @@
+# test compose file; override defaults with un/safe values to facilitate development
+
+services:
+  web-server:
+    command: cargo watch -q -c -w /code/crates/services -w /code/crates/libs -x "test --bin=web-example"
+    image: localhost/rust-axum-dev
+    env_file:
+      - envs/envfile.tst
+    working_dir: /code
+    volumes:
+      - ../../../source:/code
