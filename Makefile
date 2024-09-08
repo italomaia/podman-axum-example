@@ -1,6 +1,3 @@
-# makes `source` available
-SHELL := /bin/bash
-
 # -- ALL TARGETS GO BELOW
 
 # fails if ENV is empty or not defined
@@ -21,6 +18,9 @@ build-img-axum-prd: guard-var-NAME guard-var-REPO guard-var-TAG
 
 srv-up: guard-var-crate
 	@invoke up -c services/${crate}
+
+sch-up: guard-var-crate
+	@invoke up -c scheduled/${crate}
 
 web-example-up:
 	@make srv-up up crate=web-example
