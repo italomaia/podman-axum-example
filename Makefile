@@ -19,8 +19,17 @@ build-img-axum-prd: guard-var-NAME guard-var-REPO guard-var-TAG
 srv-up: guard-var-crate
 	@invoke up -c services/${crate}
 
-sch-up: guard-var-crate
-	@invoke up -c scheduled/${crate}
+srv-down: guard-var-crate
+	@invoke down -c services/${crate}
+
+srv-stop: guard-var-crate
+	@invoke stop -c services/${crate}
 
 web-example-up:
-	@make srv-up up crate=web-example
+	@make srv-up crate=web-example
+
+web-example-down:
+	@make srv-down crate=web-example
+
+web-example-stop:
+	@make srv-stop crate=web-example

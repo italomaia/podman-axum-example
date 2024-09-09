@@ -20,7 +20,7 @@ class Env(Enum):
     TST = 'tst'
 
     def __getitem__(self, name: str) -> Self:
-        return super().__getitem__(name.upper())
+        return super().__getitem__(name.upper()) # type: ignore
 
     def __str__(self):
         return self.name.lower()
@@ -28,6 +28,13 @@ class Env(Enum):
     def envfile(self):
         return "envs/envfile-%s" % self
 
+class ComposeCmd(Enum):
+    UP = 'up'
+    DOWN = 'down'
+    STOP = 'stop'
+    
+    def __str__(self):
+        return self.name.lower()
 
 class Config:
     env: Env = Env.DEV
@@ -50,36 +57,31 @@ class Config:
 
 config = Config()
 
+def build_compose_cmd(ctx: Context, command: ComposeCmd, crate: str, srv: Optional[str]=None):
+    cmd = [COMPOSE_BIN] + config.compose_files_arg(crate) + [str(command)]
+
+    if srv is not None:
+        cmd += [srv]
+
+    ctx.run(' '.join(cmd))
+
+# region: --- tasks
+
 @task(name='env')
 def task_env(ctx: Context, name: str):
     config.env = Env[name]
 
 @task(name='up')
 def task_up(ctx: Context, crate: str, srv: Optional[str]=None):
-    cmd = [COMPOSE_BIN] + config.compose_files_arg(crate) + ['up']
-    
-    if srv is not None:
-        cmd += [srv]
-
-    ctx.run(' '.join(cmd))
+    build_compose_cmd(ctx, ComposeCmd.UP, crate, srv)
 
 @task(name='down')
-def task_down(ctx: Context, srv: Optional[str]=None):
-    cmd = [COMPOSE_BIN] + config.compose_files_arg() + ['down']
-    
-    if srv is not None:
-        cmd += [srv]
-    
-    ctx.run(' '.join(cmd))
+def task_down(ctx: Context, crate: str, srv: Optional[str]=None):
+    build_compose_cmd(ctx, ComposeCmd.DOWN, crate, srv)
 
 @task(name='stop')
-def task_stop(ctx: Context, srv: Optional[str]=None):
-    cmd = [COMPOSE_BIN] + config.compose_files_arg() + ['stop']
-    
-    if srv is not None:
-        cmd += [srv]
-    
-    ctx.run(' '.join(cmd))
+def task_stop(ctx: Context, crate: str, srv: Optional[str]=None):
+    build_compose_cmd(ctx, ComposeCmd.STOP, crate, srv)
 
 @task(name='img-build')
 def img_build(
@@ -118,3 +120,5 @@ def img_build(
     print(cmd)
 
     ctx.run(' '.join(cmd))
+
+# endregion: --- tasks
