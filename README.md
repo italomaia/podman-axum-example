@@ -35,3 +35,8 @@ sure to check out those. To run the web-example, try:
 `srv=web-example make srv-up`
 
 That will load the compose configuration for **dev** and reload it when your crates are changed.
+
+## Kudos
+
+This project is heavely inspired by [Jeremy Chone's work](https://www.youtube.com/@JeremyChone). Do
+take some time to go over his channel and projects. 
