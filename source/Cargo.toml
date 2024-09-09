@@ -6,7 +6,7 @@ unsafe_code = "forbid"
 resolver = "2"
 members = [
     # libs - shared crates used by services, cron & tools
-    # "crates/libs/lib-something",
+    "crates/libs/lib-utils",
     
     # services - long running integrated processes
     # "crates/services/web-something",
