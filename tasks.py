@@ -82,7 +82,7 @@ def task_env(ctx: Context, name: str):
 
 @task(name='up')
 def task_up(ctx: Context, crate: str, srv: Optional[str]=None):
-    build_compose_cmd(ctx, ComposeCmd.UP, crate, srv)
+    build_compose_cmd(ctx, ComposeCmd.UP, crate, srv, '--detach')
 
 @task(name='down')
 def task_down(ctx: Context, crate: str, srv: Optional[str]=None):
