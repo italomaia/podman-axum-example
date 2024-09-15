@@ -32,6 +32,7 @@ class ComposeCmd(Enum):
     UP = 'up'
     DOWN = 'down'
     STOP = 'stop'
+    LOGS = 'logs'
     
     def __str__(self):
         return self.name.lower()
@@ -57,11 +58,19 @@ class Config:
 
 config = Config()
 
-def build_compose_cmd(ctx: Context, command: ComposeCmd, crate: str, srv: Optional[str]=None):
+def build_compose_cmd(
+        ctx: Context,
+        command: ComposeCmd,
+        crate: str,
+        srv: Optional[str]=None,
+        opts: Optional[str]=None,
+    ):
     cmd = [COMPOSE_BIN] + config.compose_files_arg(crate) + [str(command)]
 
     if srv is not None:
         cmd += [srv]
+    if opts is not None:
+        cmd += [opts]
 
     ctx.run(' '.join(cmd))
 
@@ -82,6 +91,10 @@ def task_down(ctx: Context, crate: str, srv: Optional[str]=None):
 @task(name='stop')
 def task_stop(ctx: Context, crate: str, srv: Optional[str]=None):
     build_compose_cmd(ctx, ComposeCmd.STOP, crate, srv)
+
+@task(name='logs')
+def task_logs(ctx: Context, crate: str, srv: str, opts: Optional[str]=None):
+    build_compose_cmd(ctx, ComposeCmd.LOGS, crate, srv, opts)
 
 @task(name='img-build')
 def img_build(

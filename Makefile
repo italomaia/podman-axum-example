@@ -25,6 +25,12 @@ srv-down: guard-var-crate
 srv-stop: guard-var-crate
 	@invoke stop -c services/${crate}
 
+srv-logs-%: guard-var-crate
+	@invoke logs -c services/${crate} -s ${*}
+
+srv-wlogs-%: guard-var-crate
+	@invoke logs -c services/${crate} -s ${*} -o "--follow"
+
 web-example-up:
 	@make srv-up crate=web-example
 
@@ -33,3 +39,9 @@ web-example-down:
 
 web-example-stop:
 	@make srv-stop crate=web-example
+
+web-example-logs:
+	@make srv-logs-web-server crate=web-example
+
+web-example-wlogs:
+	@make srv-wlogs-web-server crate=web-example
