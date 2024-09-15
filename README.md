@@ -32,9 +32,9 @@ axum and podman in mind.
 This project uses *Makefile* and *tasks.py* [pyinvoke](https://docs.pyinvoke.org/) to automate things so, be 
 sure to check out those. To run the web-example, try:
 
-`srv=web-example make srv-up`
+`make web-example-up web-example-wlogs`
 
-That will load the compose configuration for **dev** and reload it when your crates are changed.
+That will load the compose configuration for **dev** and reload it when source/crates is changed.
 
 ## Kudos
 
