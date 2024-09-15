@@ -1,7 +1,10 @@
 # Axum Podman Example
 
-This project shows an advised structure for your code when developing with
+This project shows an example structure for your code when developing with
 axum and podman in mind. 
+
+AKA: keep in mind this is a pet project with ideas I'm constantly trying out
+and updating. I offer no guarantees this work `;)`
 
 ## Project Structure
 
