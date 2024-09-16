@@ -4,7 +4,7 @@ services:
   web-server:
     command: /usr/bin/service
     image: localhost/rust-axum-prd
-    env_file:
-      - envs/envfile
+    environment:
+      - RUST_LOG=error
     ports:
       - 8080:8080

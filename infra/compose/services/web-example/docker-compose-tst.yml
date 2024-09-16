@@ -3,7 +3,7 @@
 services:
   web-server:
     command: cargo watch -q -c -w /code/crates/services -w /code/crates/libs -x "test --bin=web-example"
-    env_file:
-      - envs/envfile.tst
+    environment:
+      - RUST_LOG=warn
     volumes:
       - ../../../../source:/code
