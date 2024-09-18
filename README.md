@@ -24,7 +24,6 @@ and updating. I offer no guarantees this work `;)`
 
 ## Requirements
 
-* cargo + rust
 * make
 * podman
 * podman-compose
