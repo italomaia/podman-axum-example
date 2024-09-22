@@ -6,6 +6,15 @@ axum and podman in mind.
 AKA: keep in mind this is a pet project with ideas I'm constantly trying out
 and updating. I offer no guarantees this work `;)`
 
+## Requirements
+
+* make
+* podman
+* podman-compose
+* pyinvoke
+
+**note:** yes, rust is not required.
+
 ## Project Structure
 
 * **infra/** - *IaC* everything that runs your code goes here
@@ -21,13 +30,6 @@ and updating. I offer no guarantees this work `;)`
 * **source/crates/scheduled** scheduled jobs that run per configuration; cannot be a crate dependency
 * **source/crates/services** jobs that await & response to connections; cannot be a crate dependency
 * **source/crates/tools** maintenance jobs that are neither scheduled nor await events; cannot be a crate dependency
-
-## Requirements
-
-* make
-* podman
-* podman-compose
-* pyinvoke
 
 ## How to work here?
 
