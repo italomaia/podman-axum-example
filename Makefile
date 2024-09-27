@@ -13,8 +13,8 @@ build-img-axum-dev:
 	@invoke img-build -i rust-axum-dev
 
 # used by axum services
-build-img-axum-prd: guard-var-NAME guard-var-REPO guard-var-TAG
-	@invoke img-build -i rust-axum-prd -n ${NAME}:${TAG} -r ${REPO} -t ${TAG}
+build-img-axum-prd: guard-var-name guard-var-repo guard-var-tag
+	@invoke img-build -i rust-axum-prd -n ${name}:${tag} -r ${repo} -t ${tag}
 
 srv-up: guard-var-crate
 	@invoke up -c services/${crate}
